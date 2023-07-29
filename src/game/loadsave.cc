@@ -522,7 +522,7 @@ int SaveGame(int mode)
                     int mouseY;
                     mouseGetPositionInWindow(lsgwin, &mouseX, &mouseY);
 
-                    slot_cursor = (mouseY - 79) / (3 * text_height() + 4);
+                    slot_cursor = (mouseY - 79) / (3 * 10 + 4);
                     if (slot_cursor < 0) {
                         slot_cursor = 0;
                     }
@@ -1025,7 +1025,7 @@ int LoadGame(int mode)
                     int mouseY;
                     mouseGetPositionInWindow(lsgwin, &mouseX, &mouseY);
 
-                    int clickedSlot = (mouseY - 79) / (3 * text_height() + 4);
+                    int clickedSlot = (mouseY - 79) / (3 * 10 + 4);
                     if (clickedSlot < 0) {
                         clickedSlot = 0;
                     } else if (clickedSlot > 9) {
@@ -1921,7 +1921,7 @@ static void ShowSlotList(int a1)
         snprintf(str, sizeof(str), "[   %s %.2d:   ]", text, index + 1);
         text_to_buf(lsgbuf + LS_WINDOW_WIDTH * y + 55, str, LS_WINDOW_WIDTH, LS_WINDOW_WIDTH, color);
 
-        y += text_height();
+        y += 10;
         switch (LSstatus[index]) {
         case SLOT_STATE_OCCUPIED:
             strcpy(str, LSData[index].description);
@@ -1946,7 +1946,7 @@ static void ShowSlotList(int a1)
         }
 
         text_to_buf(lsgbuf + LS_WINDOW_WIDTH * y + 55, str, LS_WINDOW_WIDTH, LS_WINDOW_WIDTH, color);
-        y += 2 * text_height() + 4;
+        y += 2 * 10 + 4;
     }
 }
 
@@ -1973,7 +1973,7 @@ static void DrawInfoBox(int a1)
             text = getmsg(&lsgame_msgfl, &lsgmesg, 116 + ptr->gameMonth);
             snprintf(str, sizeof(str), "%.2d %s %.4d   %.4d", ptr->gameDay, text, ptr->gameYear, time);
 
-            int v2 = text_height();
+            int v2 = 10;
             text_to_buf(lsgbuf + LS_WINDOW_WIDTH * (256 + v2) + 397, str, LS_WINDOW_WIDTH, LS_WINDOW_WIDTH, color);
 
             const char* v22 = map_get_elev_idx(ptr->map, ptr->elevation);
@@ -2181,7 +2181,7 @@ static int get_input_str2(int win, int doneKeyCode, int cancelKeyCode, char* des
 {
     int cursorWidth = text_width("_") - 4;
     int windowWidth = win_width(win);
-    int lineHeight = text_height();
+    int lineHeight = 10;
     unsigned char* windowBuffer = win_get_buf(win);
     if (maxLength > 255) {
         maxLength = 255;

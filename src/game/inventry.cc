@@ -1480,7 +1480,7 @@ void display_inventory(int first_item_index, int selected_index, int inventoryWi
             int y = INVENTORY_LOOT_LEFT_SCROLLER_Y + inven_cur_disp * INVENTORY_SLOT_HEIGHT + 2;
             buf_to_buf(data + pitch * y + x,
                 INVENTORY_SLOT_WIDTH,
-                text_height(),
+                10,
                 pitch,
                 windowBuffer + pitch * y + x,
                 pitch);
@@ -1579,7 +1579,7 @@ void display_target_inventory(int first_item_index, int selected_index, Inventor
             int y = INVENTORY_LOOT_RIGHT_SCROLLER_Y + INVENTORY_SLOT_HEIGHT * inven_cur_disp + 2;
             buf_to_buf(data + pitch * y + x,
                 INVENTORY_SLOT_WIDTH,
-                text_height(),
+                10,
                 pitch,
                 windowBuffer + pitch * y + x,
                 pitch);
@@ -2566,14 +2566,14 @@ void display_stats()
     draw_line(windowBuffer,
         INVENTORY_WINDOW_WIDTH,
         INVENTORY_SUMMARY_X,
-        3 * text_height() / 2 + INVENTORY_SUMMARY_Y,
+        3 * 10 / 2 + INVENTORY_SUMMARY_Y,
         INVENTORY_SUMMARY_MAX_X,
-        3 * text_height() / 2 + INVENTORY_SUMMARY_Y,
+        3 * 10 / 2 + INVENTORY_SUMMARY_Y,
         colorTable[992]);
 
     MessageListItem messageListItem;
 
-    int offset = INVENTORY_WINDOW_WIDTH * 2 * text_height() + INVENTORY_WINDOW_WIDTH * INVENTORY_SUMMARY_Y + INVENTORY_SUMMARY_X;
+    int offset = INVENTORY_WINDOW_WIDTH * 2 * 10 + INVENTORY_WINDOW_WIDTH * INVENTORY_SUMMARY_Y + INVENTORY_SUMMARY_X;
     for (int stat = 0; stat < 7; stat++) {
         messageListItem.num = stat;
         if (message_search(&inventry_message_file, &messageListItem)) {
@@ -2584,10 +2584,10 @@ void display_stats()
         snprintf(formattedText, sizeof(formattedText), "%d", value);
         text_to_buf(windowBuffer + offset + 24, formattedText, 80, INVENTORY_WINDOW_WIDTH, colorTable[992]);
 
-        offset += INVENTORY_WINDOW_WIDTH * text_height();
+        offset += INVENTORY_WINDOW_WIDTH * 10;
     }
 
-    offset -= INVENTORY_WINDOW_WIDTH * 7 * text_height();
+    offset -= INVENTORY_WINDOW_WIDTH * 7 * 10;
 
     for (int index = 0; index < 7; index += 1) {
         messageListItem.num = 7 + index;
@@ -2607,11 +2607,11 @@ void display_stats()
 
         text_to_buf(windowBuffer + offset + 104, formattedText, 80, INVENTORY_WINDOW_WIDTH, colorTable[992]);
 
-        offset += INVENTORY_WINDOW_WIDTH * text_height();
+        offset += INVENTORY_WINDOW_WIDTH * 10;
     }
 
-    draw_line(windowBuffer, INVENTORY_WINDOW_WIDTH, INVENTORY_SUMMARY_X, 18 * text_height() / 2 + 48, INVENTORY_SUMMARY_MAX_X, 18 * text_height() / 2 + 48, colorTable[992]);
-    draw_line(windowBuffer, INVENTORY_WINDOW_WIDTH, INVENTORY_SUMMARY_X, 26 * text_height() / 2 + 48, INVENTORY_SUMMARY_MAX_X, 26 * text_height() / 2 + 48, colorTable[992]);
+    draw_line(windowBuffer, INVENTORY_WINDOW_WIDTH, INVENTORY_SUMMARY_X, 18 * 10 / 2 + 48, INVENTORY_SUMMARY_MAX_X, 18 * 10 / 2 + 48, colorTable[992]);
+    draw_line(windowBuffer, INVENTORY_WINDOW_WIDTH, INVENTORY_SUMMARY_X, 26 * 10 / 2 + 48, INVENTORY_SUMMARY_MAX_X, 26 * 10 / 2 + 48, colorTable[992]);
 
     Object* itemsInHands[2] = {
         i_lhand,
@@ -2623,7 +2623,7 @@ void display_stats()
         HIT_MODE_RIGHT_WEAPON_PRIMARY,
     };
 
-    offset += INVENTORY_WINDOW_WIDTH * text_height();
+    offset += INVENTORY_WINDOW_WIDTH * 10;
 
     for (int index = 0; index < 2; index += 1) {
         Object* item = itemsInHands[index];
@@ -2636,7 +2636,7 @@ void display_stats()
                 text_to_buf(windowBuffer + offset, messageListItem.text, 120, INVENTORY_WINDOW_WIDTH, colorTable[992]);
             }
 
-            offset += INVENTORY_WINDOW_WIDTH * text_height();
+            offset += INVENTORY_WINDOW_WIDTH * 10;
 
             // Unarmed dmg:
             messageListItem.num = 24;
@@ -2649,14 +2649,14 @@ void display_stats()
 
             text_to_buf(windowBuffer + offset, formattedText, 120, INVENTORY_WINDOW_WIDTH, colorTable[992]);
 
-            offset += 3 * INVENTORY_WINDOW_WIDTH * text_height();
+            offset += 3 * INVENTORY_WINDOW_WIDTH * 10;
             continue;
         }
 
         const char* itemName = item_name(item);
         text_to_buf(windowBuffer + offset, itemName, 140, INVENTORY_WINDOW_WIDTH, colorTable[992]);
 
-        offset += INVENTORY_WINDOW_WIDTH * text_height();
+        offset += INVENTORY_WINDOW_WIDTH * 10;
 
         int itemType = item_get_type(item);
         if (itemType != ITEM_TYPE_WEAPON) {
@@ -2668,7 +2668,7 @@ void display_stats()
                 }
             }
 
-            offset += 3 * INVENTORY_WINDOW_WIDTH * text_height();
+            offset += 3 * INVENTORY_WINDOW_WIDTH * 10;
             continue;
         }
 
@@ -2704,7 +2704,7 @@ void display_stats()
             text_to_buf(windowBuffer + offset, formattedText, 140, INVENTORY_WINDOW_WIDTH, colorTable[992]);
         }
 
-        offset += INVENTORY_WINDOW_WIDTH * text_height();
+        offset += INVENTORY_WINDOW_WIDTH * 10;
 
         if (item_w_max_ammo(item) > 0) {
             int ammoTypePid = item_w_ammo_pid(item);
@@ -2728,7 +2728,7 @@ void display_stats()
             text_to_buf(windowBuffer + offset, formattedText, 140, INVENTORY_WINDOW_WIDTH, colorTable[992]);
         }
 
-        offset += 2 * INVENTORY_WINDOW_WIDTH * text_height();
+        offset += 2 * INVENTORY_WINDOW_WIDTH * 10;
     }
 
     // Total wt:
@@ -3096,7 +3096,7 @@ void inven_display_msg(char* string)
                 // This was the last line containing very long word. Text
                 // drawing routine will silently truncate it after reaching
                 // desired length.
-                text_to_buf(windowBuffer + 499 * inven_display_msg_line * text_height(), c, 152, 499, colorTable[992]);
+                text_to_buf(windowBuffer + 499 * inven_display_msg_line * 10, c, 152, 499, colorTable[992]);
                 return;
             }
 
@@ -3137,7 +3137,7 @@ void inven_display_msg(char* string)
             return;
         }
 
-        text_to_buf(windowBuffer + 499 * inven_display_msg_line * text_height(), c, 152, 499, colorTable[992]);
+        text_to_buf(windowBuffer + 499 * inven_display_msg_line * 10, c, 152, 499, colorTable[992]);
 
         if (space != NULL) {
             c = space + 1;
@@ -3182,7 +3182,7 @@ void inven_obj_examine_func(Object* critter, Object* item)
     // Increment line counter to accomodate separator below.
     inven_display_msg_line += 1;
 
-    int lineHeight = text_height();
+    int lineHeight = 10;
 
     // Draw separator.
     draw_line(windowBuffer,
@@ -4466,7 +4466,7 @@ static void display_table_inventories(int win, Object* a2, Object* a3, int a4)
     text_font(101);
 
     char formattedText[80];
-    int v45 = text_height() + INVENTORY_SLOT_HEIGHT * inven_cur_disp;
+    int v45 = 10 + INVENTORY_SLOT_HEIGHT * inven_cur_disp;
 
     if (a2 != NULL) {
         unsigned char* src = win_get_buf(win);
