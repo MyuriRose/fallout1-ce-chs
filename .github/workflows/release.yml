@@ -50,7 +50,7 @@ jobs:
       - name: Upload
         run: |
           cd os/android/app/build/outputs/apk/release
-          cp app-release.apk fallout-ce-android.apk
+          cp app-release-unsigned.apk fallout-ce-android.apk
           gh release upload ${{ github.ref_name }} fallout-ce-android.apk
           rm fallout-ce-android.apk
         env:

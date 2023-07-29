@@ -84,7 +84,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: fallout-ce-debug.apk
-          path: os/android/app/build/outputs/apk/debug/app-debug.apk
+          path: os/android/app/build/outputs/apk/debug/app-debug-unsigned.apk
           retention-days: 7
 
   ios:
