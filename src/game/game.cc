@@ -15,6 +15,7 @@
 #include "game/editor.h"
 #include "game/endgame.h"
 #include "game/fontmgr.h"
+#include "game/freetype_manager.h"
 #include "game/gconfig.h"
 #include "game/gdialog.h"
 #include "game/gmemory.h"
@@ -45,6 +46,7 @@
 #include "game/trait.h"
 #include "game/version.h"
 #include "game/worldmap.h"
+#include "game/wordwrap.h"
 #include "int/movie.h"
 #include "int/window.h"
 #include "platform_compat.h"
@@ -89,6 +91,7 @@ static FontMgr alias_mgr = {
     FMtext_spacing,
     FMtext_size,
     FMtext_max,
+    legacy_word_wrap,
 };
 
 // 0x504FBC
@@ -148,6 +151,9 @@ int game_init(const char* windowTitle, bool isMapper, int font, int a4, int argc
     if (!game_in_mapper) {
         game_splash_screen();
     }
+
+    FtFontsInit();
+    text_add_manager(&gFtFontManager);
 
     FMInit();
     text_add_manager(&alias_mgr);
@@ -384,6 +390,7 @@ void game_exit()
     automap_exit();
     palette_exit();
     FMExit();
+    FtFontsExit();
     windowClose();
     db_exit();
     gconfig_exit(true);

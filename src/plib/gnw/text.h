@@ -1,6 +1,8 @@
 #ifndef FALLOUT_PLIB_GNW_TEXT_H_
 #define FALLOUT_PLIB_GNW_TEXT_H_
 
+typedef int FontManageWordWrapProc(const char* string, int width, short* breakpoints, short* breakpointsLengthPtr);
+
 namespace fallout {
 
 #define FONT_SHADOW 0x10000
@@ -29,6 +31,7 @@ typedef struct FontMgr {
     text_spacing_func* text_spacing;
     text_size_func* text_size;
     text_max_func* text_max;
+    FontManageWordWrapProc* word_wrap;
 } FontMgr;
 
 typedef FontMgr* FontMgrPtr;
@@ -63,6 +66,8 @@ extern text_mono_width_func* text_mono_width;
 extern text_spacing_func* text_spacing;
 extern text_size_func* text_size;
 extern text_max_func* text_max;
+
+extern FontManageWordWrapProc* word_wrap;
 
 int GNW_text_init();
 void GNW_text_exit();

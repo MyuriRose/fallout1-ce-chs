@@ -8,6 +8,8 @@
 #include "plib/db/db.h"
 #include "plib/gnw/memory.h"
 
+#include "game/wordwrap.h"
+
 namespace fallout {
 
 // The maximum number of text fonts.
@@ -58,6 +60,8 @@ text_size_func* text_size = NULL;
 // 0x53A228
 text_max_func* text_max = NULL;
 
+FontManageWordWrapProc* word_wrap = NULL;
+
 // 0x6ABE98
 static Font font[TEXT_FONT_MAX];
 
@@ -83,6 +87,7 @@ int GNW_text_init()
         GNW_text_spacing,
         GNW_text_size,
         GNW_text_max,
+        legacy_word_wrap,
     };
 
     int i;
@@ -283,6 +288,7 @@ void text_font(int font_num)
         text_spacing = mgr->text_spacing;
         text_size = mgr->text_size;
         text_max = mgr->text_max;
+        word_wrap = mgr->word_wrap;
 
         curr_font_num = font_num;
 
