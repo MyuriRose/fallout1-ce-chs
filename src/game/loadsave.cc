@@ -1921,7 +1921,7 @@ static void ShowSlotList(int a1)
         snprintf(str, sizeof(str), "[   %s %.2d:   ]", text, index + 1);
         text_to_buf(lsgbuf + LS_WINDOW_WIDTH * y + 55, str, LS_WINDOW_WIDTH, LS_WINDOW_WIDTH, color);
 
-        y += text_height();
+        y += 12;
         switch (LSstatus[index]) {
         case SLOT_STATE_OCCUPIED:
             strcpy(str, LSData[index].description);
@@ -1946,7 +1946,8 @@ static void ShowSlotList(int a1)
         }
 
         text_to_buf(lsgbuf + LS_WINDOW_WIDTH * y + 55, str, LS_WINDOW_WIDTH, LS_WINDOW_WIDTH, color);
-        y += 2 * text_height() + 4;
+        //y += 2 * text_height() + 4;
+        y += 24;
     }
 }
 
