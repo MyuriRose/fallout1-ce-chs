@@ -767,8 +767,7 @@ static bool select_display_stats()
 
     text_char_width(0x20);
 
-    //int vh = text_height();
-    int vh = 11;
+    int vh = text_height();
     int y = 40;
 
     // NAME
