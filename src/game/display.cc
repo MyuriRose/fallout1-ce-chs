@@ -23,7 +23,7 @@ namespace fallout {
 #define DISPLAY_MONITOR_LINES_CAPACITY 100
 
 // The maximum length of a string in display monitor (in characters).
-#define DISPLAY_MONITOR_LINE_LENGTH 80
+#define DISPLAY_MONITOR_LINE_LENGTH 50
 
 #define DISPLAY_MONITOR_X 23
 #define DISPLAY_MONITOR_Y 24
@@ -215,9 +215,9 @@ void display_print(char* str)
     }
 
     // TODO: Refactor these two loops.
-    char* v1 = NULL;
+    char* next = NULL;
     while (true) {
-        while (text_width(str) < DISPLAY_MONITOR_WIDTH - max_disp_ptr - knobWidth) {
+        while ((text_width(str) < DISPLAY_MONITOR_WIDTH - max_disp_ptr - knobWidth) || next) {
             char* temp = disp_str[disp_start];
             int length;
             if (knob != '\0') {
@@ -229,32 +229,36 @@ void display_print(char* str)
                 length = DISPLAY_MONITOR_LINE_LENGTH - 1;
             }
             strncpy(temp, str, length);
+            if (next) {
+                // In Chinese, we don't repace the next space with EOL,
+                // so we need to manually add the EOL
+                *(temp + (next - str)) = '\0';
+            }
             disp_str[disp_start][DISPLAY_MONITOR_LINE_LENGTH - 1] = '\0';
             disp_start = (disp_start + 1) % max_ptr;
+      
 
-            if (v1 == NULL) {
+            if (next == NULL) {
                 text_font(oldFont);
                 disp_curr = disp_start;
                 display_redraw();
                 return;
             }
 
-            str = v1 + 1;
-            *v1 = ' ';
-            v1 = NULL;
+            // In Chinese, there's no space or EOL to skip
+            str = next;
+            next = NULL;
         }
 
-        char* space = strrchr(str, ' ');
-        if (space == NULL) {
-            break;
+        // In Chinese, there's no space, so we cut by length
+        // and there's no space to replace with EOL,
+        // so we rely on the next ptr to know the end of current line.
+        next = str;
+        int cnt = 0;
+        while (cnt < 13 && *next != '\0') {
+            next += (*next >= '0' && *next <= '9') ? 1 : 2;
+            ++cnt;
         }
-
-        if (v1 != NULL) {
-            *v1 = ' ';
-        }
-
-        v1 = space;
-        *space = '\0';
     }
 
     char* temp = disp_str[disp_start];
