@@ -816,7 +816,7 @@ static int CharEditStart()
 
     text_font(101);
 
-    slider_y = skill_cursor * (text_height() + 1) + 27;
+    slider_y = skill_cursor * (10 + 1) + 27;
 
     // skills
     skill_get_tags(temp_tag_skill, NUM_TAGGED_SKILLS);
@@ -1452,7 +1452,7 @@ int get_input_str(int win, int cancelKeyCode, char* text, int maxLength, int x, 
 {
     int cursorWidth = text_width("_") - 4;
     int windowWidth = win_width(win);
-    int v60 = text_height();
+    int v60 = 10;
     unsigned char* windowBuffer = win_get_buf(win);
     if (maxLength > 255) {
         maxLength = 255;
@@ -1467,7 +1467,7 @@ int get_input_str(int win, int cancelKeyCode, char* text, int maxLength, int x, 
 
     int nameWidth = text_width(copy);
 
-    buf_fill(windowBuffer + windowWidth * y + x, nameWidth, text_height(), windowWidth, backgroundColor);
+    buf_fill(windowBuffer + windowWidth * y + x, nameWidth, 10, windowWidth, backgroundColor);
     text_to_buf(windowBuffer + windowWidth * y + x, copy, windowWidth, windowWidth, textColor);
 
     win_draw(win);
@@ -1650,7 +1650,7 @@ static void DrawFolder()
                     640,
                     color);
 
-                y += 1 + text_height();
+                y += 1 + 10;
             }
         }
 
@@ -1658,7 +1658,7 @@ static void DrawFolder()
             debug_printf("\n ** To many perks! %d total **\n", count);
         }
 
-        y = 362 + 7 * (text_height() + 1);
+        y = 362 + 7 * (10 + 1);
         v2 = text_width(getmsg(&editor_message_file, &mesg, 156));
         v3 = (280 - v2) / 2 + 34;
         v4 = (246 - v2) / 2;
@@ -1671,19 +1671,19 @@ static void DrawFolder()
 
         win_line(edit_win,
             34,
-            y + text_height() / 2,
+            y + 10 / 2,
             v4 + 34,
-            y + text_height() / 2,
+            y + 10 / 2,
             colorTable[992]);
 
         win_line(edit_win,
             v3 + v2 + 34 - 23,
-            y + text_height() / 2,
+            y + 10 / 2,
             v3 + v2 + 34 + v4 - 23,
-            y + text_height() / 2,
+            y + 10 / 2,
             colorTable[992]);
 
-        y += 1 + text_height();
+        y += 1 + 10;
         if (temp_trait[0] != -1) {
             if (selected_perk_line == 8) {
                 color = colorTable[32747];
@@ -1696,7 +1696,7 @@ static void DrawFolder()
                 640,
                 640, color);
 
-            y += 1 + text_height();
+            y += 1 + 10;
         }
 
         if (temp_trait[1] != -1) {
@@ -1785,7 +1785,7 @@ static int ListKills()
             640,
             color);
 
-        y += 1 + text_height();
+        y += 1 + 10;
     }
 
     if (count - 10 > 0) {
@@ -1809,7 +1809,7 @@ static int ListKills()
                 640,
                 color);
 
-            y += 1 + text_height();
+            y += 1 + 10;
         }
     }
 
@@ -1958,7 +1958,7 @@ static void PrintLevelWin()
     text_to_buf(win_buf + 640 * y + 32, stringBuffer, 640, 640, color);
 
     // EXPERIENCE
-    y += text_height() + 1;
+    y += 10 + 1;
     if (info_line != 8) {
         color = colorTable[992];
     } else {
@@ -1972,7 +1972,7 @@ static void PrintLevelWin()
     text_to_buf(win_buf + 640 * y + 32, stringBuffer, 640, 640, color);
 
     // EXP NEEDED TO NEXT LEVEL
-    y += text_height() + 1;
+    y += 10 + 1;
     if (info_line != 9) {
         color = colorTable[992];
     } else {
@@ -2038,7 +2038,7 @@ static void PrintBasicStat(int stat, bool animate, int previousValue)
 
         PrintBigNum(58, StatYpos[stat], flags, value, previousValue, edit_win);
 
-        buf_to_buf(bckgnd + off, 40, text_height(), 640, win_buf + off, 640);
+        buf_to_buf(bckgnd + off, 40, 10, 640, win_buf + off, 640);
 
         messageListItemId = stat_level(obj_dude, stat) + 199;
         if (messageListItemId > 210) {
@@ -2050,7 +2050,7 @@ static void PrintBasicStat(int stat, bool animate, int previousValue)
     } else {
         value = stat_level(obj_dude, stat);
         PrintBigNum(58, StatYpos[stat], 0, value, 0, edit_win);
-        buf_to_buf(bckgnd + off, 40, text_height(), 640, win_buf + off, 640);
+        buf_to_buf(bckgnd + off, 40, 10, 640, win_buf + off, 640);
 
         value = stat_level(obj_dude, stat);
         if (value > 10) {
@@ -2217,7 +2217,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 194, t, 640, 640, color);
 
     // Poisoned
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_POISONED) {
         color = critter_get_poison(obj_dude) != 0 ? colorTable[32747] : colorTable[15845];
@@ -2230,7 +2230,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 194, t, 640, 640, color);
 
     // Radiated
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_RADIATED) {
         color = critter_get_rads(obj_dude) != 0 ? colorTable[32747] : colorTable[15845];
@@ -2243,7 +2243,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 194, t, 640, 640, color);
 
     // Eye Damage
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_EYE_DAMAGE) {
         color = (conditions & DAM_BLIND) ? colorTable[32747] : colorTable[15845];
@@ -2256,7 +2256,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 194, t, 640, 640, color);
 
     // Crippled Right Arm
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_CRIPPLED_RIGHT_ARM) {
         color = (conditions & DAM_CRIP_ARM_RIGHT) ? colorTable[32747] : colorTable[15845];
@@ -2269,7 +2269,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 194, t, 640, 640, color);
 
     // Crippled Left Arm
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_CRIPPLED_LEFT_ARM) {
         color = (conditions & DAM_CRIP_ARM_LEFT) ? colorTable[32747] : colorTable[15845];
@@ -2282,7 +2282,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 194, t, 640, 640, color);
 
     // Crippled Right Leg
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_CRIPPLED_RIGHT_LEG) {
         color = (conditions & DAM_CRIP_LEG_RIGHT) ? colorTable[32747] : colorTable[15845];
@@ -2295,7 +2295,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 194, t, 640, 640, color);
 
     // Crippled Left Leg
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_CRIPPLED_LEFT_LEG) {
         color = (conditions & DAM_CRIP_LEG_LEFT) ? colorTable[32747] : colorTable[15845];
@@ -2326,7 +2326,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 288, t, 640, 640, color);
 
     // Action Points
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_FIRST_DERIVED_STAT + EDITOR_DERIVED_STAT_ACTION_POINTS) {
         color = colorTable[32747];
@@ -2342,7 +2342,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 288, t, 640, 640, color);
 
     // Carry Weight
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_FIRST_DERIVED_STAT + EDITOR_DERIVED_STAT_CARRY_WEIGHT) {
         color = colorTable[32747];
@@ -2358,7 +2358,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 288, t, 640, 640, color);
 
     // Melee Damage
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_FIRST_DERIVED_STAT + EDITOR_DERIVED_STAT_MELEE_DAMAGE) {
         color = colorTable[32747];
@@ -2374,7 +2374,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 288, t, 640, 640, color);
 
     // Damage Resistance
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_FIRST_DERIVED_STAT + EDITOR_DERIVED_STAT_DAMAGE_RESISTANCE) {
         color = colorTable[32747];
@@ -2390,7 +2390,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 288, t, 640, 640, color);
 
     // Poison Resistance
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_FIRST_DERIVED_STAT + EDITOR_DERIVED_STAT_POISON_RESISTANCE) {
         color = colorTable[32747];
@@ -2406,7 +2406,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 288, t, 640, 640, color);
 
     // Radiation Resistance
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_FIRST_DERIVED_STAT + EDITOR_DERIVED_STAT_RADIATION_RESISTANCE) {
         color = colorTable[32747];
@@ -2422,7 +2422,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 288, t, 640, 640, color);
 
     // Sequence
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_FIRST_DERIVED_STAT + EDITOR_DERIVED_STAT_SEQUENCE) {
         color = colorTable[32747];
@@ -2438,7 +2438,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 288, t, 640, 640, color);
 
     // Healing Rate
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_FIRST_DERIVED_STAT + EDITOR_DERIVED_STAT_HEALING_RATE) {
         color = colorTable[32747];
@@ -2454,7 +2454,7 @@ static void ListDrvdStats()
     text_to_buf(win_buf + 640 * y + 288, t, 640, 640, color);
 
     // Critical Chance
-    y += text_height() + 3;
+    y += 10 + 3;
 
     if (info_line == EDITOR_FIRST_DERIVED_STAT + EDITOR_DERIVED_STAT_CRITICAL_CHANCE) {
         color = colorTable[32747];
@@ -2548,11 +2548,11 @@ static void ListSkills(int a1)
 
         text_to_buf(win_buf + 640 * y + 573, valueString, 640, 640, color);
 
-        y += text_height() + 1;
+        y += 10 + 1;
     }
 
     if (!glblmode) {
-        y = skill_cursor * (text_height() + 1);
+        y = skill_cursor * (10 + 1);
         slider_y = y + 27;
 
         trans_buf_to_buf(
@@ -4540,12 +4540,12 @@ static int DrawCard(int graphicId, const char* name, const char* attributes, cha
     text_font(102);
 
     text_to_buf(win_buf + 640 * 272 + 348, name, 640, 640, colorTable[0]);
-    int nameFontLineHeight = text_height();
+    int nameFontLineHeight = 10;
     if (attributes != NULL) {
         int nameWidth = text_width(name);
 
         text_font(101);
-        int attributesFontLineHeight = text_height();
+        int attributesFontLineHeight = 10;
         text_to_buf(win_buf + 640 * (268 + nameFontLineHeight - attributesFontLineHeight) + 348 + nameWidth + 8, attributes, 640, 640, colorTable[0]);
     }
 
@@ -4555,7 +4555,7 @@ static int DrawCard(int graphicId, const char* name, const char* attributes, cha
 
     text_font(101);
 
-    int descriptionFontLineHeight = text_height();
+    int descriptionFontLineHeight = 10;
 
     if (word_wrap(description, v9 + 136, beginnings, &beginningsCount) != 0) {
         // TODO: Leaking graphic handle.
@@ -4669,7 +4669,7 @@ static void InfoButton(int eventCode)
             if (offset < 0) {
                 offset = 0;
             }
-            info_line = offset / (text_height() + 1) + 10;
+            info_line = offset / (10 + 1) + 10;
 
             if (folder == EDITOR_FOLDER_KILLS && mouse_xpos > 174) {
                 info_line += 10;
@@ -4725,9 +4725,9 @@ static void InfoButton(int eventCode)
 
             // TODO: Original code is slightly different.
             double mouseY = mouse_ypos;
-            double fontLineHeight = text_height();
+            double fontLineHeight = 10;
             double y = 353.0;
-            double step = text_height() + 3 + 0.56;
+            double step = 10 + 3 + 0.56;
             int index;
             for (index = 0; index < 8; index++) {
                 if (mouseY >= y - 4.0 && mouseY <= y + fontLineHeight) {
@@ -4990,7 +4990,7 @@ static void ListTraits()
 
     trait_set(temp_trait[0], temp_trait[1]);
 
-    step = text_height() + 3 + 0.56;
+    step = 10 + 3 + 0.56;
     y = 353;
     for (trait = 0; trait < 8; trait++) {
         if (trait == selected_trait_line) {
@@ -5125,7 +5125,7 @@ static int ListKarma()
     text_to_buf(win_buf + 640 * 362 + 34, text, 640, 640, color);
 
     count = 1;
-    y = text_height() + 363;
+    y = 10 + 363;
     for (index = 0; index < 9; index++) {
         if (game_global_vars[karma_var_table[index]]) {
             if (count == selected_karma_line) {
@@ -5139,7 +5139,7 @@ static int ListKarma()
                 640,
                 640,
                 color);
-            y += 1 + text_height();
+            y += 1 + 10;
 
             count++;
         }
@@ -5496,7 +5496,7 @@ static int InputPDLoop(int count, void (*refreshProc)())
 
     int v3 = count - 11;
 
-    int height = text_height();
+    int height = 10;
     oldsline = -2;
     int v16 = height + 2;
 
@@ -5772,7 +5772,7 @@ static int ListDPerks()
     v16 += crow;
 
     int y = 43;
-    int yStep = text_height() + 2;
+    int yStep = 10 + 2;
     for (int index = crow; index < v16; index++) {
         int color;
         if (index == crow + cline) {
@@ -5824,7 +5824,7 @@ static bool GetMutateTrait()
     if (trait_count >= 1) {
         text_font(103);
 
-        buf_to_buf(pbckgnd + PERK_WINDOW_WIDTH * 14 + 49, 206, text_height() + 2, PERK_WINDOW_WIDTH, pwin_buf + PERK_WINDOW_WIDTH * 15 + 49, PERK_WINDOW_WIDTH);
+        buf_to_buf(pbckgnd + PERK_WINDOW_WIDTH * 14 + 49, 206, 10 + 2, PERK_WINDOW_WIDTH, pwin_buf + PERK_WINDOW_WIDTH * 15 + 49, PERK_WINDOW_WIDTH);
 
         // LOSE A TRAIT
         char* msg = getmsg(&editor_message_file, &mesg, 154);
@@ -5865,7 +5865,7 @@ static bool GetMutateTrait()
     if (result) {
         text_font(103);
 
-        buf_to_buf(pbckgnd + PERK_WINDOW_WIDTH * 14 + 49, 206, text_height() + 2, PERK_WINDOW_WIDTH, pwin_buf + PERK_WINDOW_WIDTH * 15 + 49, PERK_WINDOW_WIDTH);
+        buf_to_buf(pbckgnd + PERK_WINDOW_WIDTH * 14 + 49, 206, 10 + 2, PERK_WINDOW_WIDTH, pwin_buf + PERK_WINDOW_WIDTH * 15 + 49, PERK_WINDOW_WIDTH);
 
         // PICK A NEW TRAIT
         char* msg = getmsg(&editor_message_file, &mesg, 153);
@@ -5924,7 +5924,7 @@ static bool Add4thTagSkill()
 {
     text_font(103);
 
-    buf_to_buf(pbckgnd + 573 * 14 + 49, 206, text_height() + 2, 573, pwin_buf + 573 * 15 + 49, 573);
+    buf_to_buf(pbckgnd + 573 * 14 + 49, 206, 10 + 2, 573, pwin_buf + 573 * 15 + 49, 573);
 
     // PICK A NEW TAG SKILL
     char* messageListItemText = getmsg(&editor_message_file, &mesg, 155);
@@ -5960,7 +5960,7 @@ static void ListNewTagSkills()
     optrt_count = 0;
 
     int y = 43;
-    int yStep = text_height() + 2;
+    int yStep = 10 + 2;
 
     for (int skill = 0; skill < SKILL_COUNT; skill++) {
         if (skill != temp_tag_skill[0] && skill != temp_tag_skill[1] && skill != temp_tag_skill[2] && skill != temp_tag_skill[3]) {
@@ -5993,7 +5993,7 @@ static int ListMyTraits(int a1)
     text_font(101);
 
     int y = 43;
-    int yStep = text_height() + 2;
+    int yStep = 10 + 2;
 
     if (a1 != 0) {
         int count = 0;
@@ -6090,7 +6090,7 @@ static int DrawCard2(int frmId, const char* name, const char* rank, char* descri
     }
 
     text_font(102);
-    int nameHeight = text_height();
+    int nameHeight = 10;
 
     text_to_buf(pwin_buf + PERK_WINDOW_WIDTH * 27 + 280, name, PERK_WINDOW_WIDTH, PERK_WINDOW_WIDTH, colorTable[0]);
 
@@ -6098,7 +6098,7 @@ static int DrawCard2(int frmId, const char* name, const char* rank, char* descri
         int rankX = text_width(name) + 280 + 8;
         text_font(101);
 
-        int rankHeight = text_height();
+        int rankHeight = 10;
         text_to_buf(pwin_buf + PERK_WINDOW_WIDTH * (23 + nameHeight - rankHeight) + rankX, rank, PERK_WINDOW_WIDTH, PERK_WINDOW_WIDTH, colorTable[0]);
     }
 
@@ -6107,7 +6107,7 @@ static int DrawCard2(int frmId, const char* name, const char* rank, char* descri
 
     text_font(101);
 
-    int yStep = text_height() + 1;
+    int yStep = 10 + 1;
     int y = 70;
 
     short beginnings[WORD_WRAP_MAX_COUNT];
