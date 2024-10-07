@@ -176,7 +176,7 @@ jobs:
   macos:
     name: macOS
 
-    runs-on: macos-11
+    runs-on: macos-12
 
     steps:
       - name: Clone
@@ -247,7 +247,7 @@ jobs:
   windows:
     name: Windows (${{ matrix.arch }})
 
-    runs-on: windows-2019
+    runs-on: windows-2022
 
     strategy:
       fail-fast: false
@@ -272,7 +272,7 @@ jobs:
         run: |
           cmake \
             -B build \
-            -G "Visual Studio 16 2019" \
+            -G "Visual Studio 17 2022" \
             -A ${{ matrix.generator-platform }} \
             # EOL
 
