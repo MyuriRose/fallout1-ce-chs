@@ -2566,14 +2566,14 @@ void display_stats()
     draw_line(windowBuffer,
         INVENTORY_WINDOW_WIDTH,
         INVENTORY_SUMMARY_X,
-        3 * text_height() / 2 + INVENTORY_SUMMARY_Y,
+        3 * 10 / 2 - 4 + INVENTORY_SUMMARY_Y,
         INVENTORY_SUMMARY_MAX_X,
-        3 * text_height() / 2 + INVENTORY_SUMMARY_Y,
+        3 * 10 / 2 - 4 + INVENTORY_SUMMARY_Y,
         colorTable[992]);
 
     MessageListItem messageListItem;
 
-    int offset = INVENTORY_WINDOW_WIDTH * 2 * text_height() + INVENTORY_WINDOW_WIDTH * INVENTORY_SUMMARY_Y + INVENTORY_SUMMARY_X;
+    int offset = INVENTORY_WINDOW_WIDTH * (2 * 10 - 6) + INVENTORY_WINDOW_WIDTH * INVENTORY_SUMMARY_Y + INVENTORY_SUMMARY_X;
     for (int stat = 0; stat < 7; stat++) {
         messageListItem.num = stat;
         if (message_search(&inventry_message_file, &messageListItem)) {
@@ -2584,10 +2584,10 @@ void display_stats()
         snprintf(formattedText, sizeof(formattedText), "%d", value);
         text_to_buf(windowBuffer + offset + 24, formattedText, 80, INVENTORY_WINDOW_WIDTH, colorTable[992]);
 
-        offset += INVENTORY_WINDOW_WIDTH * text_height();
+        offset += INVENTORY_WINDOW_WIDTH * 12;
     }
 
-    offset -= INVENTORY_WINDOW_WIDTH * 7 * text_height();
+    offset -= INVENTORY_WINDOW_WIDTH * 7 * 12;
 
     for (int index = 0; index < 7; index += 1) {
         messageListItem.num = 7 + index;
@@ -2607,11 +2607,11 @@ void display_stats()
 
         text_to_buf(windowBuffer + offset + 104, formattedText, 80, INVENTORY_WINDOW_WIDTH, colorTable[992]);
 
-        offset += INVENTORY_WINDOW_WIDTH * text_height();
+        offset += INVENTORY_WINDOW_WIDTH * 12;
     }
 
-    draw_line(windowBuffer, INVENTORY_WINDOW_WIDTH, INVENTORY_SUMMARY_X, 18 * text_height() / 2 + 48, INVENTORY_SUMMARY_MAX_X, 18 * text_height() / 2 + 48, colorTable[992]);
-    draw_line(windowBuffer, INVENTORY_WINDOW_WIDTH, INVENTORY_SUMMARY_X, 26 * text_height() / 2 + 48, INVENTORY_SUMMARY_MAX_X, 26 * text_height() / 2 + 48, colorTable[992]);
+    draw_line(windowBuffer, INVENTORY_WINDOW_WIDTH, INVENTORY_SUMMARY_X, 18 * 12 / 2 - 13 + 48, INVENTORY_SUMMARY_MAX_X, 18 * 12 / 2 - 13 + 48, colorTable[992]);
+    draw_line(windowBuffer, INVENTORY_WINDOW_WIDTH, INVENTORY_SUMMARY_X, 25 * 12 / 2 - 15 + 48, INVENTORY_SUMMARY_MAX_X, 25 * 12 / 2 - 15 + 48, colorTable[992]);
 
     Object* itemsInHands[2] = {
         i_lhand,
@@ -2623,7 +2623,7 @@ void display_stats()
         HIT_MODE_RIGHT_WEAPON_PRIMARY,
     };
 
-    offset += INVENTORY_WINDOW_WIDTH * text_height();
+    offset += INVENTORY_WINDOW_WIDTH * (12 - 8);
 
     for (int index = 0; index < 2; index += 1) {
         Object* item = itemsInHands[index];
@@ -2636,7 +2636,7 @@ void display_stats()
                 text_to_buf(windowBuffer + offset, messageListItem.text, 120, INVENTORY_WINDOW_WIDTH, colorTable[992]);
             }
 
-            offset += INVENTORY_WINDOW_WIDTH * text_height();
+            offset += INVENTORY_WINDOW_WIDTH * 12;
 
             // Unarmed dmg:
             messageListItem.num = 24;
@@ -2649,14 +2649,14 @@ void display_stats()
 
             text_to_buf(windowBuffer + offset, formattedText, 120, INVENTORY_WINDOW_WIDTH, colorTable[992]);
 
-            offset += 3 * INVENTORY_WINDOW_WIDTH * text_height();
+            offset += (3 * 12 - 8) * INVENTORY_WINDOW_WIDTH;
             continue;
         }
 
         const char* itemName = item_name(item);
         text_to_buf(windowBuffer + offset, itemName, 140, INVENTORY_WINDOW_WIDTH, colorTable[992]);
 
-        offset += INVENTORY_WINDOW_WIDTH * text_height();
+        offset += INVENTORY_WINDOW_WIDTH * 12;
 
         int itemType = item_get_type(item);
         if (itemType != ITEM_TYPE_WEAPON) {
@@ -2668,7 +2668,7 @@ void display_stats()
                 }
             }
 
-            offset += 3 * INVENTORY_WINDOW_WIDTH * text_height();
+            offset += (3 * 12 - 8) * INVENTORY_WINDOW_WIDTH;
             continue;
         }
 
@@ -2704,7 +2704,7 @@ void display_stats()
             text_to_buf(windowBuffer + offset, formattedText, 140, INVENTORY_WINDOW_WIDTH, colorTable[992]);
         }
 
-        offset += INVENTORY_WINDOW_WIDTH * text_height();
+        offset += INVENTORY_WINDOW_WIDTH * 12;
 
         if (item_w_max_ammo(item) > 0) {
             int ammoTypePid = item_w_ammo_pid(item);
@@ -2728,8 +2728,10 @@ void display_stats()
             text_to_buf(windowBuffer + offset, formattedText, 140, INVENTORY_WINDOW_WIDTH, colorTable[992]);
         }
 
-        offset += 2 * INVENTORY_WINDOW_WIDTH * text_height();
+        offset += (2 * 12 - 8) * INVENTORY_WINDOW_WIDTH;
     }
+
+    offset -= 2 * INVENTORY_WINDOW_WIDTH;
 
     // Total wt:
     messageListItem.num = 20;
