@@ -2567,40 +2567,31 @@ static int text_to_rect_func(unsigned char* buffer, Rect* rect, char* string, in
     }
 
     int maxWidth = rect->lrx - rect->ulx;
+    // In the original code, we look for a space ' ' between words,
+    // and we cut the string by replacing the space with EOL,
+    // and then replace it back after print the current row.
+    // But in Chinese, there's no space and we can cut between any character,
+    // but we cannot replace the next character with EOL since it's not space,
+    // unless we store the original character, so we copy the cut part into a 
+    // temp string, when there's a valid temp string, we can bypass width check
+    char temp[1000];
+    temp[0] = '\0';
     char* end = NULL;
     while (start != NULL && *start != '\0') {
-        if (text_width(start) > maxWidth) {
-            end = start + 1;
-            while (*end != '\0' && *end != ' ') {
+        if (temp[0] == '\0' && text_width(start) > maxWidth) {
+            end = start + 2;
+            int x = maxWidth / 6;
+            while (*end != '\0' && end - start < (start == string ? x-2: x)) {
+                end++;
                 end++;
             }
 
             if (*end != '\0') {
-                char* lookahead = end + 1;
-                while (lookahead != NULL) {
-                    while (*lookahead != '\0' && *lookahead != ' ') {
-                        lookahead++;
-                    }
-
-                    if (*lookahead == '\0') {
-                        lookahead = NULL;
-                    } else {
-                        *lookahead = '\0';
-                        if (text_width(start) >= maxWidth) {
-                            *lookahead = ' ';
-                            lookahead = NULL;
-                        } else {
-                            end = lookahead;
-                            *lookahead = ' ';
-                            lookahead++;
-                        }
-                    }
-                }
-
-                if (*end == ' ') {
-                    *end = '\0';
-                }
+                strncpy(temp, start, end - start);
+                temp[end - start] = '\0';
             } else {
+                // should not reach here for Chinese, since we can cut at any position
+                // there should always be a valid(not EOL) end position
                 if (rect->lry - text_height() < rect->uly) {
                     return rect->uly;
                 }
@@ -2620,7 +2611,7 @@ static int text_to_rect_func(unsigned char* buffer, Rect* rect, char* string, in
             }
         }
 
-        if (text_width(start) > maxWidth) {
+        if (temp[0] == '\0' && text_width(start) > maxWidth) {
             debug_printf("\nError: display_msg: word too long!");
             break;
         }
@@ -2639,7 +2630,8 @@ static int text_to_rect_func(unsigned char* buffer, Rect* rect, char* string, in
             } else {
                 dest = buffer;
             }
-            text_to_buf(dest + pitch * rect->uly, start, maxWidth, pitch, color);
+            text_to_buf(dest + pitch * rect->uly, (temp[0] == '\0' ? start: temp), maxWidth, pitch, color);
+            temp[0] = '\0';
         }
 
         if (a4 != NULL && end != NULL) {
@@ -2649,10 +2641,8 @@ static int text_to_rect_func(unsigned char* buffer, Rect* rect, char* string, in
         rect->uly += height;
 
         if (end != NULL) {
-            start = end + 1;
-            if (*end == '\0') {
-                *end = ' ';
-            }
+            // no space or EOL to skip in Chinese
+            start = end;
             end = NULL;
         } else {
             start = NULL;
